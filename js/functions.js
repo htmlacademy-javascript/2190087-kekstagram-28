@@ -1,5 +1,6 @@
 //Функция для проверки длины строки
 const validateLength = (string, number) => string.length <= number;
+validateLength();
 
 //Функция для проверки, является ли строка палиндромом
 const isPalindrome = (string) => {
@@ -10,6 +11,8 @@ const isPalindrome = (string) => {
   }
   return string === stringReverse;
 };
+
+isPalindrome();
 
 //Функция, которая принимает строку, извлекает цифры от 0 до 9 и возвращает их в виде целого положительного числа
 
@@ -26,6 +29,8 @@ const extractNumber = (string) => {
   return parseInt(resultNumber, 10);
 };
 
+extractNumber();
+
 //Функция принимает три параметра: исходную строку, минимальную длину и строку с добавочными символами
 //возвращает исходную строку, дополненную указанными символами до заданной длины.
 //Символы добавляются в начало строки.
@@ -38,3 +43,4 @@ const newPadStart = (string, targetLength, pad) => {
   }
   return pad.slice(0, actualPad % pad.length) + pad.repeat(actualPad / pad.length) + string;
 };
+newPadStart();

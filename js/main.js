@@ -1,3 +1,4 @@
-import {photos} from './data.js';
+import {getPhotos} from './data.js';
+import {renderThumbnails} from './thumbnail.js';
 
-photos();
+renderThumbnails(getPhotos());

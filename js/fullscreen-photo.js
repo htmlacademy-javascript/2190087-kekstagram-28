@@ -1,8 +1,7 @@
 import {isEscapeKey} from './util.js';
 
 const COMMENTS_TO_SHOW = 5;
-let commentsShown = 0;
-let comments = [];
+let currentComments = [];
 
 const body = document.querySelector('body');
 const fullscreenPhoto = document.querySelector('.big-picture');
@@ -14,37 +13,50 @@ const commentItem = document.querySelector('.social__comment');
 
 
 //Отрисовывет комментарии
-const createComment = ({ avatar, name, message }) => {
-  const comment = commentItem.cloneNode(true);
+const createComments = (commentsData) => {
+  const commentFragment = document.createDocumentFragment();
 
-  comment.querySelector('.social__picture').src = avatar;
-  comment.querySelector('.social__picture').alt = name;
-  comment.querySelector('.social__text').textContent = message;
+  commentsData.forEach(({ avatar, name, message }) => {
+    const comment = commentItem.cloneNode(true);
 
-  return comment;
+    comment.querySelector('.social__picture').src = avatar;
+    comment.querySelector('.social__picture').alt = name;
+    comment.querySelector('.social__text').textContent = message;
+
+    commentFragment.append(comment);
+  });
+  return commentFragment;
 };
 
-const renderComments = () => {
-  commentsShown += COMMENTS_TO_SHOW;
+function showComments(comments) {
+  const displayedComments = comments.slice(0, COMMENTS_TO_SHOW);
+  const renderFirstComments = createComments(displayedComments);
 
-  if (commentsShown >= comments.length) {
+  commentCount.innerHTML = `${displayedComments.length} из <span class="commnts-count">${comments.length}</span> комментариев`;
+  commentsList.appendChild(renderFirstComments);
+
+  if (displayedComments.length === comments.length) {
     commentsLoader.classList.add('hidden');
-    commentsShown = comments.length;
-  } else {
-    commentsLoader.classList.remove('hidden');
+  }
+}
+
+function renderNewComments() {
+  const additionalComments = currentComments.slice(
+    commentsList.children.length,
+    commentsList.children.length + COMMENTS_TO_SHOW,
+  );
+  const renderMoreComments = createComments(additionalComments);
+
+  commentsList.appendChild(renderMoreComments);
+
+  if (currentComments.length === commentsList.children.length) {
+    commentsLoader.classList.add('hidden');
   }
 
-  const fragment = document.createDocumentFragment();
-  for (let i = 0; i < commentsShown; i++) {
-    const commentElement = createComment(comments[i]);
-    fragment.append(commentElement);
-  }
-  commentsList.innerHTML = '';
-  commentsList.append(fragment);
-  commentCount.innerHTML = `${commentsShown} из <span class="commnts-count">${comments.length}</span> комментариев`;
-};
+  commentCount.firstChild.textContent = `${commentsList.children.length } из  `;
+}
 
-const onCommentsLoaderClick = () => renderComments();
+const onCommentsLoaderClick = () => renderNewComments();
 
 //Отрисовывет фото
 export const renderFullPhoto = ({url, description, likes}) => {
@@ -68,22 +80,20 @@ const hideFullscreenPhoto = () => {
   body.classList.remove('modal-open');
   closeButton.removeEventListener('click', hideFullscreenPhoto);
   document.removeEventListener('keydown', onEscape);
-  commentsShown = 0;
 };
 
 //Открывет фото
 export const showFullscreenPhoto = (data) => {
   fullscreenPhoto.classList.remove('hidden');
   body.classList.add('modal-open');
-  commentsLoader.classList.add('hidden');
   closeButton.addEventListener('click', hideFullscreenPhoto);
   document.addEventListener('keydown', onEscape);
 
   renderFullPhoto(data);
-  comments = data.comments;
-  if (comments.length > 0) {
-    renderComments();
-  }
+
+  commentsList.innerHTML = '';
+  currentComments = data.comments;
+  showComments(data.comments);
   commentsLoader.addEventListener('click', onCommentsLoaderClick);
 };
 

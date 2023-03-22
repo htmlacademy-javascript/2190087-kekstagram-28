@@ -2,6 +2,7 @@ import {isEscapeKey} from './util.js';
 
 const COMMENTS_TO_SHOW = 5;
 let commentsShown = 0;
+let comments = [];
 
 const body = document.querySelector('body');
 const fullscreenPhoto = document.querySelector('.big-picture');
@@ -19,9 +20,11 @@ const createComment = ({ avatar, name, message }) => {
   comment.querySelector('.social__picture').src = avatar;
   comment.querySelector('.social__picture').alt = name;
   comment.querySelector('.social__text').textContent = message;
+
+  return comment;
 };
 
-const renderComments = (comments) => {
+const renderComments = () => {
   commentsShown += COMMENTS_TO_SHOW;
 
   if (commentsShown >= comments.length) {
@@ -38,7 +41,7 @@ const renderComments = (comments) => {
   }
   commentsList.innerHTML = '';
   commentsList.append(fragment);
-  commentCount.innerHTML = `${commentsShown.length} из <span class="commnts-count">${comments.length}</span>комментариев`;
+  commentCount.innerHTML = `${commentsShown} из <span class="commnts-count">${comments.length}</span>комментариев`;
 };
 
 const onCommentsLoaderClick = () => renderComments();
@@ -73,12 +76,14 @@ export const showFullscreenPhoto = (data) => {
   fullscreenPhoto.classList.remove('hidden');
   body.classList.add('modal-open');
   commentsLoader.classList.add('hidden');
-  commentCount.classList.add('hidden');
   closeButton.addEventListener('click', hideFullscreenPhoto);
   document.addEventListener('keydown', onEscape);
 
   renderFullPhoto(data);
-  renderComments(data);
+  comments = data.comments;
+  if (comments.length > 0) {
+    renderComments();
+  }
   commentsLoader.addEventListener('click', onCommentsLoaderClick);
 };
 

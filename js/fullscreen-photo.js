@@ -10,12 +10,12 @@ const commentsLoader = document.querySelector('.comments-loader');
 const commentCount = document.querySelector('.social__comment-count');
 const closeButton = document.querySelector('.big-picture__cancel');
 const commentsList = document.querySelector('.social__comments');
+const commentItem = document.querySelector('.social__comment');
+
 
 //Отрисовывет комментарии
 const createComment = ({ avatar, name, message }) => {
-  const comment = document.createElement('li');
-  comment.innerHTML = '<img class="social__picture" src="" alt="" width="35" height="35">';
-  comment.classList.add('social__comment');
+  const comment = commentItem.cloneNode(true);
 
   comment.querySelector('.social__picture').src = avatar;
   comment.querySelector('.social__picture').alt = name;
@@ -41,7 +41,7 @@ const renderComments = () => {
   }
   commentsList.innerHTML = '';
   commentsList.append(fragment);
-  commentCount.innerHTML = `${commentsShown} из <span class="commnts-count">${comments.length}</span>комментариев`;
+  commentCount.innerHTML = `${commentsShown} из <span class="commnts-count">${comments.length}</span> комментариев`;
 };
 
 const onCommentsLoaderClick = () => renderComments();

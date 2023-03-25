@@ -46,7 +46,7 @@ const createPhotoDescription = () => ({
   url: `photos/${generateUrlId()}.jpg`,
   description: getRandomArrayElement(PHOTO_DESCRIPTIONS),
   likes: getRandomInteger(15, 200),
-  comments: Array.from({length: getRandomInteger(1, 5)}, createComment),
+  comments: Array.from({length: getRandomInteger(1, 40)}, createComment),
 });
 
 export const getPhotos = () =>

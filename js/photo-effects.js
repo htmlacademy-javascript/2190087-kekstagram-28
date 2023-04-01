@@ -93,7 +93,7 @@ const updateSliderOptions = ({ RANGE: { MIN, MAX }, START, STEP, CURRENT_EFFECT,
   slider.style.display = display;
 };
 
-const resetEffectSettings = () => {
+export const resetEffectSettings = () => {
   photoPreview.classList = '';
   photoPreview.style.filter = '';
 

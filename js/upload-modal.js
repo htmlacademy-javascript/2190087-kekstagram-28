@@ -46,16 +46,16 @@ function onEscape(evt) {
 
 const onCloseButtonClick = () => hideUploadModal();
 
-const onFileInputChange = () => showUploadModal();
-
 // Открывает модальное окно
-function showUploadModal() {
+const showUploadModal = () => {
   uploadOverlay.classList.remove('hidden');
   body.classList.add('modal-open');
 
   closeButton.addEventListener('click', hideUploadModal);
   document.addEventListener('keydown', onEscape);
-}
+};
+
+const onFileInputChange = () => showUploadModal();
 
 //Проверяет хэштеги
 const isValidTag = (tag) => VALID_SYMBOLS.test(tag);

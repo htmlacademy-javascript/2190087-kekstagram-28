@@ -1,4 +1,6 @@
 import { isEscapeKey } from './util.js';
+import { resetScaleModifier } from './photo-scale.js';
+import { resetEffectSettings } from './photo-effects.js';
 
 const uploadForm = document.querySelector('.img-upload__form');
 const uploadOverlay = document.querySelector('.img-upload__overlay');
@@ -24,6 +26,8 @@ function hideUploadModal() {
 
   uploadForm.reset();
   pristine.reset();
+  resetScaleModifier();
+  resetEffectSettings ();
 
   closeButton.removeEventListener('click', hideUploadModal);
   document.removeEventListener('keydown', onEscape);

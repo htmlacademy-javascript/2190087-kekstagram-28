@@ -36,9 +36,10 @@ const nextScaleClickHandler = () => {
   setScaleOnImg();
 };
 
-const resetScaleModifier = () => {
-  photoPreview.style.transform = '';
-};
-
 scaleSmallerButton.addEventListener('click', prevScaleClickHandler);
 scaleBiggerButton.addEventListener('click', nextScaleClickHandler);
+
+
+export const resetScaleModifier = () => {
+  photoPreview.style.transform = '';
+};

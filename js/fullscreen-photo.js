@@ -59,7 +59,7 @@ function renderNewComments() {
 const onCommentsLoaderClick = () => renderNewComments();
 
 //Отрисовывет фото
-export const renderFullPhoto = ({url, description, likes}) => {
+export const renderFullscreenPhoto = ({url, description, likes}) => {
   fullscreenPhoto.querySelector('.big-picture__img img').src = url;
   fullscreenPhoto.querySelector('.likes-count').textContent = likes;
   fullscreenPhoto.querySelector('.social__caption').textContent = description;
@@ -89,7 +89,7 @@ export const showFullscreenPhoto = (data) => {
   closeButton.addEventListener('click', hideFullscreenPhoto);
   document.addEventListener('keydown', onEscape);
 
-  renderFullPhoto(data);
+  renderFullscreenPhoto(data);
 
   commentsList.innerHTML = '';
   currentComments = data.comments;

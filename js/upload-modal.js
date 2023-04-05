@@ -8,9 +8,13 @@ const photoInput = uploadForm.querySelector('.img-upload__input');
 const hashtagField = uploadForm.querySelector('.text__hashtags');
 const closeButton = document.querySelector('#upload-cancel');
 const body = document.querySelector('body');
+const submitButton = document.querySelector('img-upload__submit');
 
 const VALID_SYMBOLS = /^#[a-zа-яё0-9]{1,19}$/i;
-
+const SubmitButtonText = {
+  IDLE: 'Сохранить',
+  SENDING: 'Сохраняю...'
+};
 
 //Валидация формы загрузки
 const pristine = new Pristine(uploadForm, {
@@ -20,7 +24,7 @@ const pristine = new Pristine(uploadForm, {
 });
 
 // Закрывает модальное окно
-function hideUploadModal() {
+export function hideUploadModal() {
   uploadOverlay.classList.add('hidden');
   body.classList.remove('modal-open');
 
@@ -81,9 +85,27 @@ pristine.addValidator(
   validateTags,
 );
 
-const onFormSubmit = (evt) => {
-  evt.preventDefault();
-  pristine.validate();
+const blockSubmitButton = () => {
+  submitButton.disabled = true;
+  submitButton.textContent = SubmitButtonText.SENDING;
+};
+
+const unblockSubmitButton = () => {
+  submitButton.disabled = false;
+  submitButton.textContent = SubmitButtonText.IDLE;
+};
+
+export const onFormSubmit = (cb) => {
+  uploadForm.addEventListener('submit', async (evt) => {
+    evt.preventDefault();
+    const isValid = pristine.validate();
+
+    if (isValid) {
+      blockSubmitButton();
+      await cb(new FormData(uploadForm));
+      unblockSubmitButton();
+    }
+  });
 };
 
 photoInput.addEventListener('change', onFileInputChange);

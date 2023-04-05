@@ -1,7 +1,9 @@
 import {showFullscreenPhoto} from './fullscreen-photo.js';
 import {renderThumbnails, photosContainer} from './thumbnail.js';
 
-const renderFullscreenPhoto = (pictures) => {
+export const renderGallery = (pictures) => {
+  renderThumbnails(pictures);
+
   photosContainer.addEventListener('click', (evt) => {
     const thumbnailPicture = evt.target.closest('[data-thumbnail-id]');
     if (!thumbnailPicture) {
@@ -12,7 +14,4 @@ const renderFullscreenPhoto = (pictures) => {
     );
     showFullscreenPhoto(picture);
   });
-  renderThumbnails(pictures);
 };
-
-export {renderFullscreenPhoto};

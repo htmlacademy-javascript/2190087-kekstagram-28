@@ -8,7 +8,7 @@ const photoInput = uploadForm.querySelector('.img-upload__input');
 const hashtagField = uploadForm.querySelector('.text__hashtags');
 const closeButton = document.querySelector('#upload-cancel');
 const body = document.querySelector('body');
-const submitButton = document.querySelector('img-upload__submit');
+const submitButton = uploadForm.querySelector('.img-upload__submit');
 
 const VALID_SYMBOLS = /^#[a-zа-яё0-9]{1,19}$/i;
 const SubmitButtonText = {
@@ -95,6 +95,7 @@ const unblockSubmitButton = () => {
   submitButton.textContent = SubmitButtonText.IDLE;
 };
 
+//Отправляет форму
 export const onFormSubmit = (cb) => {
   uploadForm.addEventListener('submit', async (evt) => {
     evt.preventDefault();
@@ -110,5 +111,3 @@ export const onFormSubmit = (cb) => {
 
 photoInput.addEventListener('change', onFileInputChange);
 closeButton.addEventListener('click', onCloseButtonClick);
-uploadForm.addEventListener('submit', onFormSubmit);
-

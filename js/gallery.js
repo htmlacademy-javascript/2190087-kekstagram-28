@@ -1,17 +1,19 @@
 import {showFullscreenPhoto} from './fullscreen-photo.js';
 import {renderThumbnails, photosContainer} from './thumbnail.js';
 
-export const renderGallery = (pictures) => {
-  renderThumbnails(pictures);
+export const renderGallery = (photos) => {
+  renderThumbnails(photos, photosContainer);
 
   photosContainer.addEventListener('click', (evt) => {
-    const thumbnailPicture = evt.target.closest('[data-thumbnail-id]');
-    if (!thumbnailPicture) {
+    const thumbnailPhoto = evt.target.closest('[data-thumbnail-id]');
+    if (!thumbnailPhoto) {
       return;
     }
-    const picture = pictures.find (
-      (item) => item.id === +thumbnailPicture.dataset.thumbnailId
+
+    evt.preventDefault();
+    const photo = photos.find (
+      (item) => item.id === +thumbnailPhoto.dataset.thumbnailId
     );
-    showFullscreenPhoto(picture);
+    showFullscreenPhoto(photo);
   });
 };

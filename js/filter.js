@@ -17,7 +17,7 @@ const filterByComments = (photoA, photoB) =>
 
 export const getFilteredPhotos = () => {
   switch(currentFilter) {
-    case Filter.DEFAULT:
+    case Filter.RANDOM:
       return [...photos].sort(filterRandomly).slice(0, NUMBER_OF_RANDOM_PHOTOS);
     case Filter.DISCUSSED:
       return [...photos].sort(filterByComments);
@@ -36,9 +36,9 @@ const setOnFiterClick = (cb) => {
       return;
     }
     filterContainer.querySelector('.img-filters__button--active')
-      .classList.remove('.img-filters__button--active');
+      .classList.remove('img-filters__button--active');
 
-    clickedButton.classList.add('.img-filters__button--active');
+    clickedButton.classList.add('img-filters__button--active');
     currentFilter = clickedButton.id;
     cb(getFilteredPhotos());
   });

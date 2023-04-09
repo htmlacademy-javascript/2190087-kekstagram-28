@@ -11,6 +11,9 @@ const body = document.querySelector('body');
 const submitButton = uploadForm.querySelector('.img-upload__submit');
 
 const VALID_SYMBOLS = /^#[a-zа-яё0-9]{1,19}$/i;
+const MAX_HASHTAG_COUNT = 5;
+const ERROR_TAG = 'Неправильно заполнен хэштег';
+
 const SubmitButtonText = {
   IDLE: 'Сохранить',
   SENDING: 'Сохраняю...'
@@ -67,22 +70,26 @@ const onFileInputChange = () => showUploadModal();
 
 //Проверяет хэштеги
 const isValidTag = (tag) => VALID_SYMBOLS.test(tag);
+
 const hasUniqueTags = (tags) => {
   const lowerCaseTags = tags.map((tag) => tag.toLowerCase());
   return lowerCaseTags.length === new Set(lowerCaseTags).size;
 };
+const isValidTagCount = (tags) => (tags.length <= MAX_HASHTAG_COUNT);
+
 
 const validateTags = (value) => {
   const tags = value
     .trim()
-    .split('')
+    .split(' ')
     .filter((tag) => tag.trim().length);
-  return hasUniqueTags(tags) && tags.every(isValidTag);
+  return tags.every(isValidTag) && isValidTagCount(tags) && hasUniqueTags(tags);
 };
 
 pristine.addValidator(
   hashtagField,
   validateTags,
+  ERROR_TAG
 );
 
 const blockSubmitButton = () => {

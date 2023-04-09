@@ -3,7 +3,7 @@ import { getData, sendData } from './api.js';
 import { showSuccessMessage, showErrorMessage, showAlert } from './message.js';
 import { onFormSubmit, hideUploadModal } from './upload-modal.js';
 import { activateFilters, getFilteredPhotos } from './filter.js';
-import {debounce} from './debounce.js';
+import { debounce } from './debounce.js';
 
 
 onFormSubmit(async (data) => {

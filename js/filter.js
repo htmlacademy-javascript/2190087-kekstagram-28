@@ -1,4 +1,5 @@
 const NUMBER_OF_RANDOM_PHOTOS = 10;
+
 const Filter = {
   DEFAULT: 'filter-default',
   RANDOM: 'filter-random',
@@ -25,7 +26,7 @@ export const getFilteredPhotos = () => {
   }
 };
 
-const setFiterClick = (cb) => {
+const setOnFiterClick = (cb) => {
   filterContainer.addEventListener('click', (evt) => {
     if (!evt.target.classList.contains('img-filters__button')) {
       return;
@@ -46,7 +47,7 @@ const setFiterClick = (cb) => {
 export const activateFilters = (loadedPhotos, cb) => {
   filterContainer.classList.remove('img-filters--inactive');
   photos = [...loadedPhotos];
-  setFiterClick(cb);
+  setOnFiterClick(cb);
 };
 
 

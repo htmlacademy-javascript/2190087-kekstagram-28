@@ -37,10 +37,10 @@ export function hideUploadModal() {
   resetEffectSettings ();
 
   closeButton.removeEventListener('click', hideUploadModal);
-  document.removeEventListener('keydown', onEscape);
+  document.removeEventListener('keydown', onModalEscape);
 }
 
-function onEscape(evt) {
+export function onModalEscape(evt) {
   const inputFocus = evt.target.matches('input:focus') ||
   evt.target.matches('textarea:focus');
 
@@ -63,7 +63,7 @@ const showUploadModal = () => {
   body.classList.add('modal-open');
 
   closeButton.addEventListener('click', hideUploadModal);
-  document.addEventListener('keydown', onEscape);
+  document.addEventListener('keydown', onModalEscape);
 };
 
 const onFileInputChange = () => showUploadModal();

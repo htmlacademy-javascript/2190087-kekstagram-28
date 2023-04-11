@@ -1,4 +1,5 @@
 import { isEscapeKey } from './util.js';
+import { onModalEscape } from './upload-modal.js';
 
 const ALERT_SHOW_TIME = 5000;
 
@@ -31,7 +32,7 @@ export const showAlert = (message) => {
 };
 
 //Ошибка загрузки на сервер
-const onErrorModalKeydown = (evt) => {
+const onErrorModalEscape = (evt) => {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
     closeErrorModal();
@@ -52,7 +53,7 @@ const onErrorCloseButtonClick = () => {
 function closeErrorModal() {
   errorContainer.remove();
   errorButton.removeEventListener('click', onErrorCloseButtonClick);
-  document.removeEventListener('keydown', onErrorModalKeydown);
+  document.removeEventListener('keydown', onErrorModalEscape);
   document.removeEventListener('click', onErrorWindowClick);
 }
 
@@ -60,8 +61,9 @@ const showErrorMessage = () => {
   errorContainer.style.zIndex = 100;
   document.body.append(errorContainer);
 
+  document.removeEventListener('keydown', onModalEscape);
   errorButton.addEventListener('click', onErrorCloseButtonClick);
-  document.addEventListener('keydown', onErrorModalKeydown);
+  document.addEventListener('keydown', onErrorModalEscape);
   document.addEventListener('click', onErrorWindowClick);
 };
 

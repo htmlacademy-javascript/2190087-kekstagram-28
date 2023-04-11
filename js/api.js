@@ -1,4 +1,5 @@
 const BASE_URL = 'https://28.javascript.pages.academy/kekstagram';
+
 const Route = {
   GET_DATA: '/data',
   SEND_DATA: '/',
@@ -24,9 +25,6 @@ const load = (route, errorText, method = Method.GET, body = null) =>
       throw new Error(errorText);
     });
 
-const getData = () => load(Route.GET_DATA, ErrorText.GET_DATA);
+export const getData = () => load(Route.GET_DATA, ErrorText.GET_DATA);
 
-const sendData = (body) => load(Route.SEND_DATA, ErrorText.SEND_DATA, Method.POST, body);
-
-export {getData, sendData};
-
+export const sendData = (body) => load(Route.SEND_DATA, ErrorText.SEND_DATA, Method.POST, body);

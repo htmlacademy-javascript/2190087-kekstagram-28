@@ -2,6 +2,9 @@ import { renderGallery } from './gallery.js';
 import { getData, sendData } from './api.js';
 import { showSuccessMessage, showErrorMessage, showAlert } from './message.js';
 import { onFormSubmit, hideUploadModal } from './upload-modal.js';
+import { activateFilters, getFilteredPhotos } from './filter.js';
+import { debounce } from './util.js';
+
 
 onFormSubmit(async (data) => {
   try {
@@ -15,7 +18,9 @@ onFormSubmit(async (data) => {
 
 try {
   const data = await getData();
-  renderGallery(data);
+  const debouncedRenderGallery = debounce(renderGallery);
+  activateFilters(data, debouncedRenderGallery);
+  renderGallery(getFilteredPhotos());
 } catch (err) {
   showAlert(err.message);
 }

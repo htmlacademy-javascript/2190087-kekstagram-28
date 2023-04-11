@@ -28,7 +28,7 @@ const createComments = (commentsData) => {
   return commentFragment;
 };
 
-function showComments(comments) {
+const showComments = (comments) => {
   const displayedComments = comments.slice(0, COMMENTS_TO_SHOW);
   const renderFirstComments = createComments(displayedComments);
 
@@ -38,9 +38,9 @@ function showComments(comments) {
   if (displayedComments.length === comments.length) {
     commentsLoader.classList.add('hidden');
   }
-}
+};
 
-function renderNewComments() {
+const renderNewComments = () => {
   const additionalComments = currentComments.slice(
     commentsList.children.length,
     commentsList.children.length + COMMENTS_TO_SHOW,
@@ -54,7 +54,7 @@ function renderNewComments() {
   }
 
   commentCount.firstChild.textContent = `${commentsList.children.length } из  `;
-}
+};
 
 const onCommentsLoaderClick = () => renderNewComments();
 

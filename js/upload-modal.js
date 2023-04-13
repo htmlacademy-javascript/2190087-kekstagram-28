@@ -1,6 +1,7 @@
 import { isEscapeKey } from './util.js';
 import { resetScaleModifier } from './photo-scale.js';
 import { resetEffectSettings } from './photo-effects.js';
+import { uploadPhoto } from './photo-upload.js';
 
 const uploadForm = document.querySelector('.img-upload__form');
 const uploadOverlay = document.querySelector('.img-upload__overlay');
@@ -61,6 +62,7 @@ const onCloseButtonClick = () => hideUploadModal();
 const showUploadModal = () => {
   uploadOverlay.classList.remove('hidden');
   body.classList.add('modal-open');
+  uploadPhoto();
 
   closeButton.addEventListener('click', hideUploadModal);
   document.addEventListener('keydown', onModalEscape);

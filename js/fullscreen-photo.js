@@ -37,6 +37,8 @@ const showComments = (comments) => {
 
   if (displayedComments.length === comments.length) {
     commentsLoader.classList.add('hidden');
+  } else {
+    commentsLoader.classList.remove('hidden');
   }
 };
 

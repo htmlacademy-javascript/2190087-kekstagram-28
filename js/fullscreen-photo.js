@@ -1,7 +1,6 @@
 import {isEscapeKey} from './util.js';
 
 const COMMENTS_TO_SHOW = 5;
-let currentComments = [];
 
 const body = document.querySelector('body');
 const fullscreenPhoto = document.querySelector('.big-picture');
@@ -11,6 +10,7 @@ const closeButton = document.querySelector('.big-picture__cancel');
 const commentsList = document.querySelector('.social__comments');
 const commentItem = document.querySelector('.social__comment');
 
+let currentComments = [];
 
 //Отрисовывет комментарии
 const createComments = (commentsData) => {
@@ -37,6 +37,8 @@ const showComments = (comments) => {
 
   if (displayedComments.length === comments.length) {
     commentsLoader.classList.add('hidden');
+  } else {
+    commentsLoader.classList.remove('hidden');
   }
 };
 

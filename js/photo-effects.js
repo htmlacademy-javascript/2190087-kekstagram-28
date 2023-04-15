@@ -1,3 +1,9 @@
+const EFFECT_CHROME = 'effects__preview--chrome';
+const EFFECT_SEPIA = 'effects__preview--sepia';
+const EFFECT_MARVIN = 'effects__preview--marvin';
+const EFFECT_PHOBOS = 'effects__preview--phobos';
+const EFFECT_HEAT = 'effects__preview--heat';
+
 const uploadForm = document.getElementById('upload-select-image');
 const slider = document.querySelector('.effect-level');
 const sliderElement = document.querySelector('.effect-level__slider');
@@ -123,22 +129,22 @@ effectsList.addEventListener('click', (evt) => {
     photoPreview.classList.add(filter);
 
     switch (filter) {
-      case 'effects__preview--chrome':
+      case EFFECT_CHROME:
         getChromeEffect();
         break;
-      case 'effects__preview--sepia':
+      case EFFECT_SEPIA:
         getSepiaEffect();
         break;
 
-      case 'effects__preview--marvin':
+      case EFFECT_MARVIN:
         getMarvinEffect();
         break;
 
-      case 'effects__preview--phobos':
+      case EFFECT_PHOBOS:
         getPhobosEffect();
         break;
 
-      case 'effects__preview--heat':
+      case EFFECT_HEAT:
         getHeatEffect();
         break;
 

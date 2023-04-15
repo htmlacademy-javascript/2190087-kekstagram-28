@@ -28,7 +28,7 @@ const pristine = new Pristine(uploadForm, {
 });
 
 // Закрывает модальное окно
-export function hideUploadModal() {
+export function onUploadModalHide() {
   uploadOverlay.classList.add('hidden');
   body.classList.remove('modal-open');
 
@@ -37,7 +37,7 @@ export function hideUploadModal() {
   resetScaleModifier();
   resetEffectSettings ();
 
-  closeButton.removeEventListener('click', hideUploadModal);
+  closeButton.removeEventListener('click', onUploadModalHide);
   document.removeEventListener('keydown', onModalEscape);
 }
 
@@ -52,11 +52,9 @@ export function onModalEscape(evt) {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
 
-    hideUploadModal();
+    onUploadModalHide();
   }
 }
-
-const onCloseButtonClick = () => hideUploadModal();
 
 // Открывает модальное окно
 const showUploadModal = () => {
@@ -64,7 +62,7 @@ const showUploadModal = () => {
   body.classList.add('modal-open');
   uploadPhoto();
 
-  closeButton.addEventListener('click', hideUploadModal);
+  closeButton.addEventListener('click', onUploadModalHide);
   document.addEventListener('keydown', onModalEscape);
 };
 
@@ -119,4 +117,4 @@ export const onFormSubmit = (cb) => {
 };
 
 photoInput.addEventListener('change', onFileInputChange);
-closeButton.addEventListener('click', onCloseButtonClick);
+closeButton.addEventListener('click', onUploadModalHide);
